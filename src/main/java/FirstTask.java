@@ -44,7 +44,9 @@ public class FirstTask
 
     public boolean sanitizeFilename(StringBuilder in)
     {
+
         String message = in.toString();
+        /*
         char[] charArray = message.toCharArray();
         boolean foundSpace = true;
 
@@ -63,12 +65,14 @@ public class FirstTask
         }
         message = String.valueOf(charArray);
 
+
+         */
         message = message.replaceAll(" ", "");
         String userInput = message;
 
         for (String validInput : validInputs)
         {
-            if (validInput.matches("(.*)" + userInput + "(.*)"))
+            if (validInput.matches("(.*)(?i)" + userInput + "(.*)"))
             {
                 in.setLength(0);
                 in.append(validInput).append(".txt");
