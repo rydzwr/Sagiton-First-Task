@@ -1,11 +1,20 @@
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Application {
-    public static void main(final String[] args) throws IOException {
-        ScreenWriter screenWriter = new ScreenWriter();
-        screenWriter.printFilePrompt();
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ResourcesWalker walker = new ResourcesWalker();
+        FileNameValidator validator = new FileNameValidator(walker);
+        StringEditor editor = new StringEditor();
+
+       ScreenWriter writer = new ScreenWriter(walker);
+       writer.printFilePrompt();
+       String userInput = scanner.nextLine();
+       if (validator.validate(userInput)) {
+           String fileName = validator.overRideFileName(userInput);
+           String fileContent = walker.loadFile(fileName);
+           writer.printFileContent(editor.removeWhitespaces(fileContent));
+       }
     }
 }
 

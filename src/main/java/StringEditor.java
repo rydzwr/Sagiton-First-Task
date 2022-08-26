@@ -14,7 +14,7 @@ public class StringEditor {
         return out;
     }
 
-    public void removeWhitespaces(String in) {
-        in = StringUtils.replace(in, " ", "");
+    public String removeWhitespaces(String in) {
+        return in = StringUtils.replace(in, " ", "");
     }
 }

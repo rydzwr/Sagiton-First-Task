@@ -1,10 +1,9 @@
 import java.util.List;
 
 public class FileNameValidator {
-    ResourcesWalker resourcesWalker = new ResourcesWalker();
     private final List<String> validFileNames;
 
-    public FileNameValidator() {
+    public FileNameValidator(ResourcesWalker resourcesWalker) {
         this.validFileNames = resourcesWalker.loadFileNames();
     }
 
@@ -12,14 +11,15 @@ public class FileNameValidator {
         return validFileNames.stream().anyMatch(v -> v.matches("(.*)(?i)" + fileName + "(.*)"));
     }
 
-    public void overRideFileName(String in) {
+    public String overRideFileName(String in) {
+        String out = "";
         for (String validInput : validFileNames)
         {
             if (validInput.matches("(.*)(?i)" + in + "(.*)"))
             {
-                in = "";
-                in += validInput;
+                return out = validInput;
             }
         }
+        return out;
     }
 }

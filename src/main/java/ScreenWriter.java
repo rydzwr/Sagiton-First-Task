@@ -1,8 +1,13 @@
 import java.util.List;
 
 public class ScreenWriter {
+    ResourcesWalker resourcesWalker;
+    public ScreenWriter(ResourcesWalker resourcesWalker) {
+        this.resourcesWalker = resourcesWalker;
+    }
+
     public void printFilePrompt() {
-        ResourcesWalker resourcesWalker = new ResourcesWalker();
+        resourcesWalker = new ResourcesWalker();
         StringEditor stringEditor = new StringEditor();
 
         System.out.println("Hi!");
