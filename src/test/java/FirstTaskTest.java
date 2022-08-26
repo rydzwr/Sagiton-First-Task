@@ -29,20 +29,15 @@ class FirstTaskTest
 
     @Test
     @DisplayName("Whitespaces count should equals 0")
-    void properOutput() throws IOException
+    void verifiesIfFileOutputHasAnyWhiteSpaces() throws IOException
     {
         //GIVEN
         FirstTask firstTask = new FirstTask(mockInputs);
         //WHEN
-        String fileContent = firstTask.getFileContent("Money.txt");
-        int spaceCount = 0;
-        for (char c : fileContent.toCharArray()) {
-            if (c == ' ') {
-                spaceCount++;
-            }
-        }
+        String fileContent = firstTask.getFileContent("src/main/res/Money.txt");
+        
         //THEN
-        assertEquals(0, spaceCount);
+        assertEquals(-1, fileContent.indexOf(' '));
     }
 
     @Test
@@ -51,9 +46,8 @@ class FirstTaskTest
     {
         //GIVEN
         FirstTask firstTask = new FirstTask(mockInputs);
-        FirstTask spy = Mockito.spy(firstTask);
         //WHEN
-        String toTest = spy.getFileContent("Invalid Input");
+        String toTest = firstTask.getFileContent("Invalid Input");
         //THEN
         assertEquals("Invalid Input", toTest);
     }
@@ -64,8 +58,7 @@ class FirstTaskTest
     {
         //GIVEN
         FirstTask firstTask = new FirstTask(mockInputs);
-        FirstTask spy = Mockito.spy(firstTask);
         //WHEN + THEN
-        assertThatIOException().isThrownBy(() -> spy.getFileContent("foo"));
+        assertThatIOException().isThrownBy(() -> firstTask.getFileContent("foo"));
     }
 }
