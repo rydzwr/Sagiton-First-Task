@@ -8,8 +8,18 @@ import java.util.Collections;
 import java.util.List;
 
 public class ResourcesWalker {
+    private final List<String> fileNames;
+
+    public ResourcesWalker() {
+        this.fileNames = loadFileNames();
+    }
+
+    public List<String> getFileNames() {
+        return fileNames;
+    }
+
     public List<String> loadFileNames() {
-        List<String> fileNames = new ArrayList<>();
+        List<String> out = new ArrayList<>();
 
         String pathName = ".\\target\\classes";
         File file = new File(pathName);
@@ -21,21 +31,22 @@ public class ResourcesWalker {
             if (names == null) {
                 throw new IOException("ResourcesWalker( 'loadFileNames' ): Couldn't load files");
             }
-            Collections.addAll(fileNames, names);
+            Collections.addAll(out, names);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return fileNames;
+        return out;
     }
 
     public String loadFile(String filename) {
+
         String out = "";
         try {
             URL url = this.getClass().getClassLoader().getResource(filename);
             if (url != null) {
                 out = IOUtils.toString(url, StandardCharsets.UTF_8);
             }
-            else throw new IOException("ResourcesWalker: Couldn't load files");
+            else throw new IOException("ResourcesWalker( 'loadFile' ): Couldn't load files");
         } catch (IOException e) {
             e.printStackTrace();
         }
