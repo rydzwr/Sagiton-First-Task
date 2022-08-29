@@ -1,0 +1,105 @@
+Hi!
+Choose file to edit:
+1. Another Brick In The Wall.txt
+2. Money.txt
+3. Welcome To The Machine.txt
+4. Wish You Were Here.txt
+
+Enter file name: 
+
+Invalid Filename
+Hi!
+Choose file to edit:
+1. Another Brick In The Wall.txt
+2. Money.txt
+3. Welcome To The Machine.txt
+4. Wish You Were Here.txt
+
+Enter file name: 
+
+Money
+Getaway
+Yougetagoodjobwithmorepayandyou'reokay
+Money
+It'sagas
+Grabthatcashwithbothhandsandmakeastash
+Newcar,caviar,fourstar,daydream
+ThinkI'llbuymeafootballteam
+Money
+Getback
+I'malright,Jack,keepyourhandsoffofmystack
+Money
+It'sahit
+Don'tgivemethatdogoodygoodbullshit
+I'minthehigh-fidelityfirst-classtravelingset
+AndIthinkIneedaLearjet
+Money
+It'sacrime
+Shareitfairly,butdon'ttakeasliceofmypie
+Money
+Sotheysay
+Istherootofalleviltoday
+Butifyouaskforarise
+It'snosurprisethatthey'regivingnoneaway
+Away,away,away
+Away,away,away
+Iwasintheright
+Yes,absolutelyintheright
+Icertainlywasintheright
+Yeah,Iwasdefinitelyintheright,thatgeezerwascruisin'forabruisin'
+Yeah!
+Whydoesanyonedoanything?
+Idon'tknow,Iwasreallydrunkatthetime
+Justtellinghimitwasin,hecouldgetitinnumbertwo
+Hewasaskingwhyitwasn'tcominguponfreighteleven
+Andafter,Iwasyellingandscreamingandtellinghimwhy
+Itwasn'tcominguponfreighteleven
+Close Program? ( Y/N )
+
+Hi!
+Choose file to edit:
+1. Another Brick In The Wall.txt
+2. Money.txt
+3. Welcome To The Machine.txt
+4. Wish You Were Here.txt
+
+Enter file name: 
+
+Money
+Getaway
+Yougetagoodjobwithmorepayandyou'reokay
+Money
+It'sagas
+Grabthatcashwithbothhandsandmakeastash
+Newcar,caviar,fourstar,daydream
+ThinkI'llbuymeafootballteam
+Money
+Getback
+I'malright,Jack,keepyourhandsoffofmystack
+Money
+It'sahit
+Don'tgivemethatdogoodygoodbullshit
+I'minthehigh-fidelityfirst-classtravelingset
+AndIthinkIneedaLearjet
+Money
+It'sacrime
+Shareitfairly,butdon'ttakeasliceofmypie
+Money
+Sotheysay
+Istherootofalleviltoday
+Butifyouaskforarise
+It'snosurprisethatthey'regivingnoneaway
+Away,away,away
+Away,away,away
+Iwasintheright
+Yes,absolutelyintheright
+Icertainlywasintheright
+Yeah,Iwasdefinitelyintheright,thatgeezerwascruisin'forabruisin'
+Yeah!
+Whydoesanyonedoanything?
+Idon'tknow,Iwasreallydrunkatthetime
+Justtellinghimitwasin,hecouldgetitinnumbertwo
+Hewasaskingwhyitwasn'tcominguponfreighteleven
+Andafter,Iwasyellingandscreamingandtellinghimwhy
+Itwasn'tcominguponfreighteleven
+Close Program? ( Y/N )

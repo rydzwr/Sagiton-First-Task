@@ -1,13 +1,20 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
         SpacesRemover remover = new SpacesRemover();
-        Scanner scanner = new Scanner(System.in);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         ResourcesWalker walker = new ResourcesWalker();
         FileNameValidator validator = new FileNameValidator(walker);
         ScreenWriter writer = new ScreenWriter(walker);
-        remover.run(scanner, walker, validator, writer);
+        try {
+            remover.run(reader, walker, validator, writer);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

@@ -1,19 +1,19 @@
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class SpacesRemoverTest {
-    private final List<String> filenames = asList("One", "Two", "Three", "Four");
     private SpacesRemover remover;
     private ResourcesWalker walker;
 
@@ -22,8 +22,7 @@ public class SpacesRemoverTest {
 
     @BeforeEach
     public void init() {
-        walker = mock(ResourcesWalker.class);
-        when(walker.getFileNames()).thenReturn(filenames);
+        walker = new ResourcesWalker();
         remover = new SpacesRemover();
         System.setOut(new PrintStream(outputStreamCaptor));
     }
@@ -34,27 +33,29 @@ public class SpacesRemoverTest {
     }
 
     @Test
-    void givenSystemOutRedirection_whenInvokePrintln_thenOutputCaptorSuccess() {
-        System.out.println("Hello Baeldung Readers!!");
-        assertEquals("Hello Baeldung Readers!!", outputStreamCaptor.toString().trim());
-    }
-
-    @Test
-    public void spacesRemoverTest() {
+    public void e2eIOTest() throws IOException {
         //GIVEN
         Scanner scanner = new Scanner(System.in);
+
+        String test = "Foo\nMoney\nn\nMoNEY\ny\n";
+        Reader inputString = new StringReader(test);
+        BufferedReader reader = new BufferedReader(inputString);
+
         FileNameValidator validator = new FileNameValidator(walker);
         ScreenWriter writer = new ScreenWriter(walker);
         StringEditor editor = new StringEditor(walker);
-
-        String validOutput = "Hi!" + "\n" +
-                "Choose file to edit:" + "\n" +
-                editor.getAllFileNamesAsString() + "\n" +
-                "Enter file name: ";
+        String validOutput;
+        URL url = this.getClass().getClassLoader().getResource("validOutput.txt");
+        assertNotNull(url);
+        validOutput = IOUtils.toString(url, StandardCharsets.UTF_8);
 
         //WHEN
-        remover.run(scanner, walker, validator, writer);
+        remover.run(reader, walker, validator, writer);
+        System.setOut(System.out);
         //THEN
-        assertEquals(validOutput.trim(), outputStreamCaptor.toString().trim());
+        validOutput = validOutput.trim().replaceAll("\\p{Cntrl}", "");
+        String toTest = outputStreamCaptor.toString().trim().replaceAll("\\p{Cntrl}", "");
+
+       assertEquals(validOutput, toTest);
     }
 }
