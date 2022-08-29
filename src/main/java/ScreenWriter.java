@@ -16,7 +16,7 @@ public class ScreenWriter {
         System.out.println(stringEditor.removeWhitespaces(content));
     }
 
-    public String concatenateFilePrompt() {
+    private String concatenateFilePrompt() {
         return "Hi!" + "\n" +
                 "Choose file to edit:" + "\n" +
                 stringEditor.getAllFileNamesAsString() + "\n" +

@@ -18,7 +18,7 @@ public class ResourcesWalker {
         return fileNames;
     }
 
-    public List<String> loadFileNames() {
+    private List<String> loadFileNames() {
         List<String> out = new ArrayList<>();
 
         String pathName = ".\\target\\classes";
@@ -38,18 +38,16 @@ public class ResourcesWalker {
         return out;
     }
 
-    public String loadFile(String filename) {
+    public String loadFile(String filename) throws IOException {
 
-        String out = "";
-        try {
+        String out;
+
             URL url = this.getClass().getClassLoader().getResource(filename);
             if (url != null) {
                 out = IOUtils.toString(url, StandardCharsets.UTF_8);
             }
-            else throw new IOException("ResourcesWalker( 'loadFile' ): Couldn't load files");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            else throw new IOException("ResourcesWalker( 'loadFile' ): Couldn't load file");
+
         return out;
     }
 }

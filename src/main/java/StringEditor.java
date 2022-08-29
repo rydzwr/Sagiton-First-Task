@@ -1,10 +1,10 @@
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StringEditor {
-    private ResourcesWalker walker;
+    private final ResourcesWalker walker;
 
     public StringEditor(ResourcesWalker walker) {
         this.walker = walker;
