@@ -1,22 +1,11 @@
-import java.util.List;
-
 public class ScreenWriter {
-    private final ResourcesWalker resourcesWalker;
     private final StringEditor stringEditor;
     public ScreenWriter(ResourcesWalker resourcesWalker) {
-        this.resourcesWalker = resourcesWalker;
-        this.stringEditor = new StringEditor();
+        this.stringEditor = new StringEditor(resourcesWalker);
     }
 
     public void printFilePrompt() {
-        System.out.println("Hi!");
-        System.out.println("Choose file to edit:");
-
-        List<String> fileNames = stringEditor.editFileNames(resourcesWalker.getFileNames());
-        for (String fileName : fileNames) {
-            System.out.println(fileName);
-        }
-        System.out.println("\n" + "Enter file name: ");
+        System.out.println(concatenateFilePrompt());
     }
 
     public void printClosingProgramQuestion() {
@@ -25,5 +14,12 @@ public class ScreenWriter {
 
     public void printFileContent(String content) {
         System.out.println(stringEditor.removeWhitespaces(content));
+    }
+
+    public String concatenateFilePrompt() {
+        return "Hi!" + "\n" +
+                "Choose file to edit:" + "\n" +
+                stringEditor.getAllFileNamesAsString() + "\n" +
+                "Enter file name: ";
     }
 }
