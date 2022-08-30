@@ -33,6 +33,8 @@ public class ResourcesWalker {
             }
             Collections.addAll(out, names);
         } catch (IOException e) {
+            // Left printStackTrace() here, because I'm sending my custom message
+            // Idk is it right or not
             e.printStackTrace();
         }
         return out;

@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
@@ -10,11 +9,8 @@ public class Application {
         ResourcesWalker walker = new ResourcesWalker();
         FileNameValidator validator = new FileNameValidator(walker);
         ScreenWriter writer = new ScreenWriter(walker);
-        try {
-            remover.run(reader, walker, validator, writer);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        remover.run(reader, walker, validator, writer);
     }
 }
 

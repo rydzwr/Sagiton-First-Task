@@ -40,6 +40,7 @@ public class ResourceWalkerTest {
 
     @Test
     public void loadFileShouldTrowException() {
-        assertThatIOException().isThrownBy(() -> walker.loadFile("Foo"));
+        var exception = catchThrowable(() -> walker.loadFile("Foo"));
+        assertThat(exception).isInstanceOf(IOException.class).hasMessageContaining("ResourcesWalker( 'loadFile' ): Couldn't load file");
     }
 }
