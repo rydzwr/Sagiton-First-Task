@@ -11,15 +11,15 @@ public class SpacesRemover {
                 String userInput = reader.readLine();
 
                 if (validator.validate(userInput)) {
-                    String fileName = validator.overrideFileName(userInput);
+                    String fileName = validator.findFirstMatchingFileName(userInput);
                     String fileContent = "";
                     try {
                         fileContent = walker.loadFile(fileName);
+                        writer.printFileContent(fileContent);
                     } catch (IOException e) {
-                        // I implemented custom exception message in ResourceWalker, that's why I left it here
+                        System.out.println("Couldn't load file due to IO issue, please ...... Here's the error log:");
                         e.printStackTrace();
                     }
-                    writer.printFileContent(fileContent);
                     writer.printClosingProgramQuestion();
                     answer = reader.readLine();
                     answer = answer.toUpperCase(Locale.ROOT);

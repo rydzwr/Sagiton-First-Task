@@ -1,6 +1,4 @@
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -10,18 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class SpacesRemoverTest {
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
-    @BeforeEach
-    public void init() {
-        System.setOut(new PrintStream(outputStreamCaptor));
-    }
-
-    @AfterEach
-    public void tearDown() {
-        System.setOut(standardOut);
-    }
 
     @Test
     public void shouldPrintMessageToUser() throws IOException {
@@ -32,7 +19,7 @@ public class SpacesRemoverTest {
         when(reader.readLine()).thenThrow(new IOException());
 
         FileNameValidator validator = new FileNameValidator(walker);
-        ScreenWriter writer = new ScreenWriter(walker);
+        ScreenWriter writer = new ScreenWriter(walker, new PrintStream(outputStreamCaptor));
 
         String validOutput = """
                 Hi!
@@ -42,8 +29,7 @@ public class SpacesRemoverTest {
                 3. Welcome To The Machine.txt
                 4. Wish You Were Here.txt
 
-                Enter file name:\s
-                Couldn't read input""";
+                Enter file name:\s""";
 
         //WHEN
         remover.run(reader, walker, validator, writer);
@@ -65,7 +51,7 @@ public class SpacesRemoverTest {
         BufferedReader reader = new BufferedReader(inputString);
 
         FileNameValidator validator = new FileNameValidator(walker);
-        ScreenWriter writer = new ScreenWriter(walker);
+        ScreenWriter writer = new ScreenWriter(walker, new PrintStream(outputStreamCaptor));
         URL url = this.getClass().getClassLoader().getResource("validOutput.txt");
 
         assertNotNull(url);

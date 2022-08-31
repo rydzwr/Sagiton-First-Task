@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rydzwr</groupId>
-    <artifactId>Spaces Remover</artifactId>
+    <artifactId>Spaces_Remover</artifactId>
     <version>1.0</version>
 
     <properties>

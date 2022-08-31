@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Application {
@@ -8,7 +7,7 @@ public class Application {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         ResourcesWalker walker = new ResourcesWalker();
         FileNameValidator validator = new FileNameValidator(walker);
-        ScreenWriter writer = new ScreenWriter(walker);
+        ScreenWriter writer = new ScreenWriter(walker, System.out);
 
         remover.run(reader, walker, validator, writer);
     }

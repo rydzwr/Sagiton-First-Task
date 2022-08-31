@@ -9,7 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class FileNameValidatorTest {
-    private final List<String> filenames = asList("One", "Two", "Three", "Four");
+    private final List<String> filenames = asList("TestOne", "TestTwo", "TestThree", "TestFour");
     private FileNameValidator validator;
 
     @BeforeEach
@@ -22,7 +22,7 @@ public class FileNameValidatorTest {
     @Test
     public void validateTestShouldReturnTrue() {
         //GIVEN
-        boolean toTest = validator.validate("One");
+        boolean toTest = validator.validate("TestOne");
         //WHEN+THEN
         assertTrue(toTest);
     }
@@ -38,20 +38,20 @@ public class FileNameValidatorTest {
     @Test
     public void overrideFilenameTest(){
         //GIVEN
-        String toOverride = "Thre";
+        String toOverride = "TestThr";
         //WHEN
-        String toTest = validator.overrideFileName(toOverride);
+        String toTest = validator.findFirstMatchingFileName(toOverride);
         //THEN
-        assertEquals("Three", toTest);
+        assertEquals("TestThree", toTest);
     }
 
     @Test
-    public void overrideFilenameShouldReturnEmptyString(){
+    public void overrideFilenameShouldReturnNull(){
         //GIVEN
         String toOverride = "Foo";
         //WHEN
-        String toTest = validator.overrideFileName(toOverride);
+        String toTest = validator.findFirstMatchingFileName(toOverride);
         //THEN
-        assertEquals("", toTest);
+        assertNull(toTest);
     }
 }

@@ -19,23 +19,14 @@ public class ScreenWriterTest {
 
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    private ByteArrayOutputStream out;
 
     @BeforeEach
     public void init() {
         ResourcesWalker walker = mock(ResourcesWalker.class);
         when(walker.getFileNames()).thenReturn(filenames);
-        writer = new ScreenWriter(walker);
+        writer = new ScreenWriter(walker, new PrintStream(outputStreamCaptor));
         editor = new StringEditor(walker);
-    }
-
-    @BeforeEach
-    public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
-    }
-
-    @AfterEach
-    public void tearDown() {
-        System.setOut(standardOut);
     }
 
     @Test

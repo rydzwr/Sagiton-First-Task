@@ -1,11 +1,13 @@
 import org.apache.commons.io.IOUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import static java.util.Arrays.asList;
 
 public class ResourcesWalker {
     private final List<String> fileNames;
@@ -19,37 +21,23 @@ public class ResourcesWalker {
     }
 
     private List<String> loadFileNames() {
-        List<String> out = new ArrayList<>();
-
         String pathName = ".\\target\\classes";
         File file = new File(pathName);
 
         FilenameFilter filter = (f, name) -> name.endsWith(".txt");
         String[] names = file.list(filter);
 
-        try {
-            if (names == null) {
-                throw new IOException("ResourcesWalker( 'loadFileNames' ): Couldn't load files");
-            }
-            Collections.addAll(out, names);
-        } catch (IOException e) {
-            // Left printStackTrace() here, because I'm sending my custom message
-            // Idk is it right or not
-            e.printStackTrace();
+        if (names != null) {
+            return asList(names);
         }
-        return out;
+        throw new RuntimeException("Could not find such a path");
     }
 
     public String loadFile(String filename) throws IOException {
-
-        String out;
-
-            URL url = this.getClass().getClassLoader().getResource(filename);
-            if (url != null) {
-                out = IOUtils.toString(url, StandardCharsets.UTF_8);
-            }
-            else throw new IOException("ResourcesWalker( 'loadFile' ): Couldn't load file");
-
-        return out;
+        URL url = this.getClass().getClassLoader().getResource(filename);
+        if (url != null) {
+            return IOUtils.toString(url, StandardCharsets.UTF_8);
+        }
+        throw new IOException("ResourcesWalker( 'loadFile' ): Couldn't load file");
     }
 }

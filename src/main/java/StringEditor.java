@@ -21,12 +21,12 @@ public class StringEditor {
     }
 
     public String getAllFileNamesAsString() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         List<String> fileNames = editFileNames(walker.getFileNames());
         for (String fileName : fileNames) {
-            out += fileName + "\n";
+            out.append(fileName).append("\n");
         }
-        return out;
+        return out.toString();
     }
 
     public String removeWhitespaces(String in) {
