@@ -1,6 +1,8 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -8,22 +10,21 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ScreenWriterTest {
     private final List<String> filenames = asList("One", "Two", "Three", "Four");
     private ScreenWriter writer;
     private StringEditor editor;
 
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    private ByteArrayOutputStream out;
 
-    @BeforeEach
+    @Mock
+    ResourcesWalker walker;
+
+    @Before
     public void init() {
-        ResourcesWalker walker = mock(ResourcesWalker.class);
         when(walker.getFileNames()).thenReturn(filenames);
         writer = new ScreenWriter(walker, new PrintStream(outputStreamCaptor));
         editor = new StringEditor(walker);

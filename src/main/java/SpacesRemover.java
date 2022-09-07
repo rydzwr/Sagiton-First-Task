@@ -3,8 +3,11 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class SpacesRemover {
+    private static final String NO = "N";
+    private static final String YES = "Y";
+
     public void run(BufferedReader reader, ResourcesWalker walker, FileNameValidator validator, ScreenWriter writer) {
-        String answer = "N";
+        String answer = NO;
         try {
             do {
                 writer.printFilePrompt();
@@ -12,23 +15,25 @@ public class SpacesRemover {
 
                 if (validator.validate(userInput)) {
                     String fileName = validator.findFirstMatchingFileName(userInput);
-                    String fileContent = "";
+                    if (fileName == null) {
+                        throw new RuntimeException("Couldn't process filename");
+                    }
                     try {
-                        fileContent = walker.loadFile(fileName);
+                        String fileContent = walker.loadFile(fileName);
                         writer.printFileContent(fileContent);
                     } catch (IOException e) {
-                        System.out.println("Couldn't load file due to IO issue, please ...... Here's the error log:");
+                        writer.print("Couldn't load file due to IO issue, please ...... Here's the error log:");
                         e.printStackTrace();
                     }
                     writer.printClosingProgramQuestion();
-                    answer = reader.readLine();
-                    answer = answer.toUpperCase(Locale.ROOT);
+                    answer = reader.readLine().toUpperCase(Locale.ROOT);
                 } else {
-                    System.out.println("Invalid Filename");
+                    writer.print("Invalid Filename");
                 }
-            } while (!answer.equals("Y"));
+            } while (!answer.equals(YES));
         } catch (IOException e) {
-            System.out.println("Couldn't read input");
+            writer.print("Couldn't read input, Here's the error log:");
+            e.printStackTrace();
         }
     }
 }

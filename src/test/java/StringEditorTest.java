@@ -1,20 +1,27 @@
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+
+@RunWith(MockitoJUnitRunner.class)
 public class StringEditorTest {
     private final List<String> filenames = asList("One", "Two", "Three", "Four");
     private StringEditor editor;
 
-    @BeforeEach
+    @Mock
+    ResourcesWalker walker;
+
+    @Before
     public void init() {
-        ResourcesWalker walker = mock(ResourcesWalker.class);
         when(walker.getFileNames()).thenReturn(filenames);
         editor = new StringEditor(walker);
     }

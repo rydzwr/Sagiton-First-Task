@@ -1,68 +1,35 @@
 import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.spy;
 
 public class SpacesRemoverTest {
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @Test
-    public void shouldPrintMessageToUser() throws IOException {
-        //GIVEN
-        SpacesRemover remover = new SpacesRemover();
-        ResourcesWalker walker = new ResourcesWalker();
-        BufferedReader reader = mock(BufferedReader.class);
-        when(reader.readLine()).thenThrow(new IOException());
-
-        FileNameValidator validator = new FileNameValidator(walker);
-        ScreenWriter writer = new ScreenWriter(walker, new PrintStream(outputStreamCaptor));
-
-        String validOutput = """
-                Hi!
-                Choose file to edit:
-                1. Another Brick In The Wall.txt
-                2. Money.txt
-                3. Welcome To The Machine.txt
-                4. Wish You Were Here.txt
-
-                Enter file name:\s""";
-
-        //WHEN
-        remover.run(reader, walker, validator, writer);
-        String toTest = outputStreamCaptor.toString();
-
-        toTest = toTest.trim().replaceAll("\\p{Cntrl}", "");
-        validOutput = validOutput.trim().replaceAll("\\p{Cntrl}", "");
-        //THEN
-        assertEquals(validOutput, toTest);
-    }
-
-    @Test
     public void e2eIOTest() throws IOException {
         //GIVEN
-        SpacesRemover remover = new SpacesRemover();
-        ResourcesWalker walker = new ResourcesWalker();
         String testUserInput = "Foo\nMoney\nn\nMoNEY\ny\n";
-        Reader inputString = new StringReader(testUserInput);
-        BufferedReader reader = new BufferedReader(inputString);
+        InputStream inStream = new ByteArrayInputStream(testUserInput.getBytes());
+        OutputStream output = new ByteArrayOutputStream();
+        Application app = new Application(inStream, output);
 
-        FileNameValidator validator = new FileNameValidator(walker);
-        ScreenWriter writer = new ScreenWriter(walker, new PrintStream(outputStreamCaptor));
         URL url = this.getClass().getClassLoader().getResource("validOutput.txt");
-
         assertNotNull(url);
         String validOutput = IOUtils.toString(url, StandardCharsets.UTF_8);
 
         //WHEN
-        remover.run(reader, walker, validator, writer);
-        validOutput = validOutput.trim().replaceAll("\\p{Cntrl}", "");
-        String toTest = outputStreamCaptor.toString().trim().replaceAll("\\p{Cntrl}", "");
+
+        app.run();
 
         //THEN
-        assertEquals(validOutput, toTest);
+        validOutput = validOutput.trim().replaceAll("\\p{Cntrl}", "");
+        String outStr = output.toString().trim().replaceAll("\\p{Cntrl}", "");
+        assertEquals(outStr, validOutput);
     }
 }

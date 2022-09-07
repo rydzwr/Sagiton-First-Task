@@ -25,6 +25,10 @@ public class ScreenWriter {
         return "Hi!" + "\n" +
                 "Choose file to edit:" + "\n" +
                 stringEditor.getAllFileNamesAsString() + "\n" +
-                "Enter file name: ";
+                "Enter file name:";
+    }
+
+    public void print(String content) {
+        out.println(content);
     }
 }

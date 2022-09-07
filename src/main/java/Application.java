@@ -1,15 +1,29 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Application {
-    public static void main(String[] args) {
-        SpacesRemover remover = new SpacesRemover();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ResourcesWalker walker = new ResourcesWalker();
-        FileNameValidator validator = new FileNameValidator(walker);
-        ScreenWriter writer = new ScreenWriter(walker, System.out);
 
+    final SpacesRemover remover;
+    final BufferedReader reader;
+    final ResourcesWalker walker;
+    final FileNameValidator validator;
+    final ScreenWriter writer;
+    final PrintStream outputStream;
+
+    public Application(InputStream in, OutputStream out) {
+        remover = new SpacesRemover();
+        reader = new BufferedReader(new InputStreamReader(in));
+        walker = new ResourcesWalker();
+        validator = new FileNameValidator(walker);
+        outputStream = new PrintStream(out);
+        writer = new ScreenWriter(walker, outputStream);
+    }
+
+    public void run() {
         remover.run(reader, walker, validator, writer);
+    }
+
+    public static void main(String[] args) {
+        new Application(System.in, System.out).run();
     }
 }
 

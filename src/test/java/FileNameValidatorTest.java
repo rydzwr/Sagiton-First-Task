@@ -1,20 +1,25 @@
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class FileNameValidatorTest {
     private final List<String> filenames = asList("TestOne", "TestTwo", "TestThree", "TestFour");
     private FileNameValidator validator;
 
-    @BeforeEach
-    public void init() {
-        ResourcesWalker walker = mock(ResourcesWalker.class);
+    @Mock
+    ResourcesWalker walker;
+
+    @Before
+    public void createMocks() {
         when(walker.getFileNames()).thenReturn(filenames);
         validator = new FileNameValidator(walker);
     }
@@ -36,7 +41,7 @@ public class FileNameValidatorTest {
     }
 
     @Test
-    public void overrideFilenameTest(){
+    public void overrideFilenameTest() {
         //GIVEN
         String toOverride = "TestThr";
         //WHEN
@@ -46,7 +51,7 @@ public class FileNameValidatorTest {
     }
 
     @Test
-    public void overrideFilenameShouldReturnNull(){
+    public void overrideFilenameShouldReturnNull() {
         //GIVEN
         String toOverride = "Foo";
         //WHEN
